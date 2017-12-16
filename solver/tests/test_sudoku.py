@@ -21,3 +21,6 @@ class TestSuDoKu(unittest.TestCase):
     def test_is_solved(self):
         print(self.sudoku)
         return
+
+if __name__ == '__main__':
+    unittest.main()
