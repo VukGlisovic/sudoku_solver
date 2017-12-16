@@ -19,8 +19,9 @@ class TestSuDoKu(unittest.TestCase):
         self.sudoku = SuDoKu(solved_field)
 
     def test_is_solved(self):
-        print(self.sudoku)
-        return
+        solved = self.sudoku.is_solved()
+        self.assertEqual(solved, True)
+
 
 if __name__ == '__main__':
     unittest.main()
