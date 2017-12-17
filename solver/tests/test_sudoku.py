@@ -37,6 +37,8 @@ class TestSuDoKu(unittest.TestCase):
         self.assertEqual(solved, False)
 
     def test_create_constraints(self):
+        """ Needs create variables to create constraints.
+        """
         solver = ILPsolver()
         solver.create_variables()
         solver.add_constraints()

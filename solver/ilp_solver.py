@@ -1,4 +1,12 @@
 import pulp
+import logging
+
+logger = logging.getLogger()
+formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(filename)s:%(lineno)s - %(funcName)s | %(message)s')
+ch = logging.StreamHandler()
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+logger.setLevel(logging.INFO)
 
 class ILPsolver:
 
@@ -7,6 +15,7 @@ class ILPsolver:
         self.var_dict = dict()
 
     def create_variables(self):
+        logger.info("Creating ILP variables.")
         for i in range(9):  # Indicates row
             for j in range(9):  # Indicates column
                 for k in range(1, 10):  # Indicates number from 1 till 9
@@ -50,4 +59,5 @@ class ILPsolver:
         self.problem += objective, "If optimized, the value should be 81."
 
     def optimize(self):
+
         pass
