@@ -39,7 +39,12 @@ class TestSuDoKu(unittest.TestCase):
     def test_create_constraints(self):
         solver = ILPsolver()
         solver.create_variables()
-        solver.create_constraints()
+        solver.add_constraints()
+        self.assertEqual(len(solver.var_dict), 729,
+                         "The ILP problem doesn't have the expected number of 729 variables. (Instead has {})".format(len(solver.var_dict)))
+        self.assertEqual(len(solver.problem.constraints), 324,
+                         "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(len(solver.problem.constraints)))
+
 
 
 if __name__ == '__main__':
