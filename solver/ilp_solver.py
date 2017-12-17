@@ -46,7 +46,8 @@ class ILPsolver:
 
 
     def create_objective_function(self):
-        pass
+        objective = sum(self.var_dict.values())
+        self.problem += objective, "If optimized, the value should be 81."
 
     def optimize(self):
         pass
