@@ -13,7 +13,7 @@ class ILPsolver:
                     var_name = 'x{row}{col}{nr}'.format(row=i, col=j, nr=k)
                     self.var_dict[var_name] = pulp.LpVariable(var_name, lowBound=0, upBound=1, cat=pulp.LpInteger)
 
-    def create_constraints(self):
+    def add_constraints(self):
         # positional constraints
         for i in range(9):
             for j in range(9):
