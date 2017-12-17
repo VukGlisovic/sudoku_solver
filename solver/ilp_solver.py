@@ -53,11 +53,13 @@ class ILPsolver:
                     c = sum(lp_variables) == 1
                     self.problem += c, "box_constraint_{row}{col}{nr}".format(row=i, col=j, nr=k)
 
+    def fill_known_numbers(self, sudoku):
+        pass
 
     def create_objective_function(self):
         objective = sum(self.var_dict.values())
         self.problem += objective, "If optimized, the value should be 81."
 
     def optimize(self):
-
-        pass
+        self.problem.solve()
+        logger.info("ILP solver status: {}".format(pulp.LpStatus[self.problem.status]))
