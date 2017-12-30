@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 
 from solver.create import SuDoKu
-from solver.ilp_solver import ILPsolver
+from solver.strategies.ilp_solver import ILPsolver
 
 
 class TestSuDoKu(unittest.TestCase):

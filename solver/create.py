@@ -4,6 +4,7 @@ Module that makes it easy to create a sudoku field that can be used to solve the
 
 import numpy as np
 
+
 class SuDoKu:
 
     def __init__(self, field):
