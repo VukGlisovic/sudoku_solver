@@ -48,7 +48,10 @@ class TestSuDoKu(unittest.TestCase):
                          "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(len(solver.problem.constraints)))
 
     def test_ilp_solver(self):
-        pass
+        solver = ILPsolver()
+        solver.create_variables()
+        solver.add_constraints()
+        solver.optimize()
 
 
 if __name__ == '__main__':
