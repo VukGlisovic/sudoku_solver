@@ -1,12 +1,10 @@
 import pulp
 import logging
 
-logger = logging.getLogger()
-formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(filename)s:%(lineno)s - %(funcName)s | %(message)s')
-ch = logging.StreamHandler()
-ch.setFormatter(formatter)
-logger.addHandler(ch)
-logger.setLevel(logging.INFO)
+logger = logging.getLogger('sudoku_logger')
+log_format = '%(asctime)s | %(levelname)s | %(filename)s:%(lineno)s - %(funcName)s | %(message)s'
+logging.basicConfig(format=log_format, level=logging.INFO)
+
 
 class ILPsolver:
 

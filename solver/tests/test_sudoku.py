@@ -47,6 +47,8 @@ class TestSuDoKu(unittest.TestCase):
         self.assertEqual(len(solver.problem.constraints), 324,
                          "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(len(solver.problem.constraints)))
 
+    def test_ilp_solver(self):
+        pass
 
 
 if __name__ == '__main__':
