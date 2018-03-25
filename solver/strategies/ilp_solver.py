@@ -54,6 +54,12 @@ class ILPsolver(AbstractStrategy):
                     lp_variables = [self.var_dict[name] for name in constraint_var_names]
                     c = sum(lp_variables) == 1
                     self.problem += c, "box_constraint_{row}{col}{nr}".format(row=i, col=j, nr=k)
+        # 'fill in' the known numbers
+        for i in range(9):
+            for j in range(9):
+                if self.field[i, j] > 0:
+                    c = self.var_dict['x' + str(i) + str(j) + str(self.field[i, j])] == 1
+                    self.problem += c, "known_pos" + str(i) + str(j)
 
     def fill_known_numbers(self, sudoku):
         pass

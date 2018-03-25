@@ -10,6 +10,8 @@ class AbstractStrategy:
 
     def __init__(self, field):
         self.field = np.array(field)
+        if field.shape != (9, 9):
+            raise ValueError("Sudoku has field needs to be of shape (9,9)!")
         self.needed_numbers = set(range(1, 10))
 
     @abstractmethod
