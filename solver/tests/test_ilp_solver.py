@@ -1,15 +1,13 @@
 import unittest
 import numpy as np
 
-from solver.create import SuDoKu
 from solver.strategies.ilp_solver import ILPsolver
 
 
 class TestILPSolver(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls):
-        """ Runs once before all tests.
+    def setUp(self):
+        """ Runs before every test.
         """
         solved_field = np.array([[1,2,3,4,5,6,7,8,9],
                                  [4,5,6,7,8,9,1,2,3],
@@ -31,8 +29,8 @@ class TestILPSolver(unittest.TestCase):
                                    [6,4,5,9,7,8,3,1,2],
                                    [9,7,8,3,1,2,6,4,np.nan]])
 
-        cls.solved_sudoku = SuDoKu(solved_field)
-        cls.unsolved_sudoku = SuDoKu(unsolved_field)
+        self.solved_sudoku = ILPsolver(solved_field)
+        self.unsolved_sudoku = ILPsolver(unsolved_field)
 
     def test_is_solved(self):
         solved = self.solved_sudoku.is_solved()
@@ -43,22 +41,21 @@ class TestILPSolver(unittest.TestCase):
     def test_create_constraints(self):
         """ Needs create variables to create constraints.
         """
-        solver = ILPsolver()
-        solver.create_variables()
-        solver.add_constraints()
-        self.assertEqual(len(solver.var_dict), 729,
-                         "The ILP problem doesn't have the expected number of 729 variables. (Instead has {})".format(len(solver.var_dict)))
-        self.assertEqual(len(solver.problem.constraints), 324,
-                         "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(len(solver.problem.constraints)))
+        self.unsolved_sudoku.create_variables()
+        self.unsolved_sudoku.add_constraints()
+        self.assertEqual(len(self.unsolved_sudoku.var_dict), 729,
+                         "The ILP problem doesn't have the expected number of 729 variables. (Instead has {})".format(
+                             len(self.unsolved_sudoku.var_dict)))
+        self.assertEqual(len(self.unsolved_sudoku.problem.constraints), 324,
+                         "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(
+                             len(self.unsolved_sudoku.problem.constraints)))
 
     def test_ilp_solver(self):
-        solver = ILPsolver()
-        solver.create_variables()
-        solver.add_constraints()
-        solver.optimize()
+        self.unsolved_sudoku.create_variables()
+        self.unsolved_sudoku.add_constraints()
+        self.unsolved_sudoku.optimize()
         # A status of 1 means optimal
-        self.assertEqual(solver.problem.status, 1)
-
+        self.assertEqual(self.unsolved_sudoku.problem.status, 1)
 
 
 if __name__ == '__main__':

@@ -1,12 +1,14 @@
+from solver.strategies import AbstractStrategy
 import pulp
 import logging
 
 logger = logging.getLogger()
 
 
-class ILPsolver:
+class ILPsolver(AbstractStrategy):
 
-    def __init__(self, name="sudoku"):
+    def __init__(self, field, name="sudoku"):
+        super(ILPsolver, self).__init__(field=field)
         self.problem = pulp.LpProblem(name, pulp.LpMaximize)
         self.var_dict = dict()
         self.n_variables = 9*9*9
@@ -62,3 +64,6 @@ class ILPsolver:
     def optimize(self):
         self.problem.solve()
         logger.info("ILP solver status: {}".format(pulp.LpStatus[self.problem.status]))
+
+    def solve(self):
+        return
