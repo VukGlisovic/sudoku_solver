@@ -46,8 +46,8 @@ class TestILPSolver(unittest.TestCase):
         self.assertEqual(len(self.unsolved_sudoku.var_dict), 729,
                          "The ILP problem doesn't have the expected number of 729 variables. (Instead has {})".format(
                              len(self.unsolved_sudoku.var_dict)))
-        self.assertEqual(len(self.unsolved_sudoku.problem.constraints), 324,
-                         "The ILP problem doesn't have the expected number of 324 constraints. (Instead has {})".format(
+        self.assertEqual(len(self.unsolved_sudoku.problem.constraints), 404,
+                         "The ILP problem doesn't have the expected number of 404 constraints. (Instead has {})".format(
                              len(self.unsolved_sudoku.problem.constraints)))
 
     def test_ilp_solver(self):
@@ -59,6 +59,7 @@ class TestILPSolver(unittest.TestCase):
         solved_field = self.unsolved_sudoku.get_solution()
         # A status of 1 means optimal
         self.assertEqual(self.unsolved_sudoku.problem.status, 1)
+        self.assertEqual(solved_field[8, 8], 5)
 
 
 if __name__ == '__main__':

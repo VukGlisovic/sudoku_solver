@@ -58,11 +58,8 @@ class ILPsolver(AbstractStrategy):
         for i in range(9):
             for j in range(9):
                 if self.field[i, j] > 0:
-                    c = self.var_dict['x' + str(i) + str(j) + str(self.field[i, j])] == 1
-                    self.problem += c, "known_pos" + str(i) + str(j)
-
-    def fill_known_numbers(self, sudoku):
-        pass
+                    c = self.var_dict['x{row}{col}{nr}'.format(row=i, col=j, nr=self.field[i, j])] == 1
+                    self.problem += c, "known_pos_{row}{col}".format(row=i, col=j)
 
     def create_objective_function(self):
         objective = sum(self.var_dict.values())
