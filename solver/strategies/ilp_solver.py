@@ -1,4 +1,4 @@
-from solver.strategies import AbstractStrategy
+from . import AbstractStrategy
 import pulp
 import numpy as np
 import logging
@@ -80,4 +80,8 @@ class ILPsolver(AbstractStrategy):
         return solved_field
 
     def solve(self):
-        return
+        self.create_variables()
+        self.create_objective_function()
+        self.add_constraints()
+        self.optimize()
+        return self.get_solution()
