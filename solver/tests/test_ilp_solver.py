@@ -51,9 +51,12 @@ class TestILPSolver(unittest.TestCase):
                              len(self.unsolved_sudoku.problem.constraints)))
 
     def test_ilp_solver(self):
+        """ This is more of a regression test.
+        """
         self.unsolved_sudoku.create_variables()
         self.unsolved_sudoku.add_constraints()
         self.unsolved_sudoku.optimize()
+        solved_field = self.unsolved_sudoku.get_solution()
         # A status of 1 means optimal
         self.assertEqual(self.unsolved_sudoku.problem.status, 1)
 

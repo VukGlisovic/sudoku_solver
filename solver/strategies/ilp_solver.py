@@ -1,5 +1,6 @@
 from solver.strategies import AbstractStrategy
 import pulp
+import numpy as np
 import logging
 
 logger = logging.getLogger()
@@ -64,6 +65,16 @@ class ILPsolver(AbstractStrategy):
     def optimize(self):
         self.problem.solve()
         logger.info("ILP solver status: {}".format(pulp.LpStatus[self.problem.status]))
+
+    def get_solution(self):
+        if self.problem.status != 1:
+            raise ValueError("SuDoKu is not solved yet! Use the optimize method to solve the sudoku.")
+        solved_field = np.zeros((9, 9), dtype="int32")
+        for x___ in self.var_dict.keys():  # Gets the keys (x___ stands for e.g. x001)
+            if self.var_dict[x___].varValue == 1:
+                # If the ILP variable equals 1, this means the number corresponding to this variable is part of the solution
+                solved_field[int(x___[1]), int(x___[2])] = int(x___[3])
+        return solved_field
 
     def solve(self):
         return
