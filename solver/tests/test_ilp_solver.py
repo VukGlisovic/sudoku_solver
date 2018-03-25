@@ -58,6 +58,12 @@ class TestILPSolver(unittest.TestCase):
         self.assertEqual(self.unsolved_sudoku.problem.status, 1)
         self.assertEqual(solved_field[8, 8], 5)
 
+    def test_non_sudoku_field(self):
+        strange_field = [[1, 2], [3, 4]]
+        with self.assertRaises(ValueError) as context:
+            ILPsolver(field=strange_field)
+        self.assertEqual(str(context.exception), "A Sudoku field needs to be of shape (9,9)!")
+
 
 if __name__ == '__main__':
     unittest.main()
