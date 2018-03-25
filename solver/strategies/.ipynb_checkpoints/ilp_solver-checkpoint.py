@@ -11,7 +11,6 @@ class ILPsolver:
     def __init__(self, name="sudoku"):
         self.problem = pulp.LpProblem(name, pulp.LpMaximize)
         self.var_dict = dict()
-        self.n_variables = 9*9*9
 
     def create_variables(self):
         logger.info("Creating ILP variables.")
@@ -22,8 +21,6 @@ class ILPsolver:
                     self.var_dict[var_name] = pulp.LpVariable(var_name, lowBound=0, upBound=1, cat=pulp.LpInteger)
 
     def add_constraints(self):
-        if len(self.var_dict) != self.n_variables:
-            raise ValueError("Expected {} variables. Got {} variables as input.".format(self.n_variables, len(self.var_dict)))
         # positional constraints (every position can have only one number)
         for i in range(9):
             for j in range(9):

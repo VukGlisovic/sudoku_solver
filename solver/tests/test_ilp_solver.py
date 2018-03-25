@@ -5,9 +5,12 @@ from solver.create import SuDoKu
 from solver.strategies.ilp_solver import ILPsolver
 
 
-class TestSuDoKu(unittest.TestCase):
+class TestILPSolver(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
+        """ Runs once before all tests.
+        """
         solved_field = np.array([[1,2,3,4,5,6,7,8,9],
                                  [4,5,6,7,8,9,1,2,3],
                                  [7,8,9,1,2,3,4,5,6],
@@ -27,8 +30,8 @@ class TestSuDoKu(unittest.TestCase):
                                    [3,1,2,6,4,5,9,7,8],
                                    [6,4,5,9,7,8,3,1,2],
                                    [9,7,8,3,1,2,6,4,np.nan]])
-        self.solved_sudoku = SuDoKu(solved_field)
-        self.unsolved_sudoku = SuDoKu(unsolved_field)
+        cls.solved_sudoku = SuDoKu(solved_field)
+        cls.unsolved_sudoku = SuDoKu(unsolved_field)
 
     def test_is_solved(self):
         solved = self.solved_sudoku.is_solved()
@@ -52,6 +55,9 @@ class TestSuDoKu(unittest.TestCase):
         solver.create_variables()
         solver.add_constraints()
         solver.optimize()
+        # A status of 1 means optimal
+        self.assertEqual(solver.problem.status, 1)
+
 
 
 if __name__ == '__main__':
