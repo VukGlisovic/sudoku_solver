@@ -30,6 +30,7 @@ class TestILPSolver(unittest.TestCase):
                                    [3,1,2,6,4,5,9,7,8],
                                    [6,4,5,9,7,8,3,1,2],
                                    [9,7,8,3,1,2,6,4,np.nan]])
+
         cls.solved_sudoku = SuDoKu(solved_field)
         cls.unsolved_sudoku = SuDoKu(unsolved_field)
 
