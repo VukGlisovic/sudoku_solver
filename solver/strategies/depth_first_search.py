@@ -7,29 +7,27 @@ logger = logging.getLogger()
 
 class DepthFirstSearch(AbstractStrategy):
 
-    def __init__(self, field, name="sudoku"):
+    def __init__(self, field):
         super(DepthFirstSearch, self).__init__(field=field)
 
     @staticmethod
     def cell_is_valid(cell_index, flattenedfield):
         proposed_value = flattenedfield[cell_index]
-        # temporary reduce by one
+        # temporary reduce by one to not confuse the constraints
         flattenedfield[cell_index] -= 1
-        #     print("Cell value {}".format(proposed_value))
         if proposed_value == 0:
+            # correct back
             flattenedfield[cell_index] += 1
             return False
         # check row
         row_start = cell_index // 9 * 9
         row_values = flattenedfield[row_start: row_start + 9]
-        #     print("Row values {}".format(row_values))
         if proposed_value in row_values:
             flattenedfield[cell_index] += 1
             return False
         # check column
         column_nr = cell_index % 9
         column_values = flattenedfield[range(column_nr, 81, 9)]
-        #     print("Column values {}".format(column_values))
         if proposed_value in column_values:
             flattenedfield[cell_index] += 1
             return False
@@ -39,7 +37,6 @@ class DepthFirstSearch(AbstractStrategy):
                       list(range(box_start + 9, box_start + 12)) + \
                       list(range(box_start + 18, box_start + 21))
         box_values = flattenedfield[box_indices]
-        #     print("Box values {}".format(box_values))
         if proposed_value in box_values:
             flattenedfield[cell_index] += 1
             return False
@@ -70,4 +67,5 @@ class DepthFirstSearch(AbstractStrategy):
 
     def solve(self):
         flattenedfield = self.field.reshape(-1)
-        return self.depth_search(flattenedfield)
+        solution = self.depth_search(flattenedfield)
+        return solution.reshape((9, 9))
