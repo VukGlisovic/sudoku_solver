@@ -50,14 +50,15 @@ class DepthFirstSearch(AbstractStrategy):
     def depth_search(self, flattenedfield):
         empty_cell_indices = np.where(flattenedfield == 0)[0]
         i = 0
-        while i != len(empty_cell_indices):
+        nr_empty_cells = len(empty_cell_indices)
+        while i != nr_empty_cells:
             current_cell_index = empty_cell_indices[i]
             if i < 0:
                 print(flattenedfield)
             if not self.cell_is_valid(current_cell_index, flattenedfield):
                 # The cell is not correct, let's increment by one and check its validity
                 flattenedfield[current_cell_index] += 1
-                while flattenedfield[current_cell_index] == 9:
+                while flattenedfield[current_cell_index] == 10:
                     flattenedfield[current_cell_index] = 0
                     i -= 1
                     current_cell_index = empty_cell_indices[i]
