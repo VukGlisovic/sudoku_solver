@@ -66,6 +66,7 @@ class DepthFirstSearch(AbstractStrategy):
         return flattenedfield
 
     def solve(self):
+        self.prepare_field()
         flattenedfield = self.field.reshape(-1)
         solution = self.depth_search(flattenedfield)
         return solution.reshape((9, 9))

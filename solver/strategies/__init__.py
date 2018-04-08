@@ -9,6 +9,7 @@ class AbstractStrategy:
     __metaclass__ = ABCMeta
 
     def __init__(self, field):
+        # field = self.prepare_field()
         self.field = np.array(field, dtype='int32')
         if self.field.shape != (9, 9):
             raise ValueError("A Sudoku field needs to be of shape (9,9)!")
@@ -17,6 +18,11 @@ class AbstractStrategy:
     @abstractmethod
     def solve(self):
         return
+
+    def prepare_field(self):
+        flattenedfield = self.field.reshape(-1)
+        is_nan_locations = np.where(flattenedfield)[0]
+        self.field = flattenedfield.reshape((9,9))
 
     def is_solved(self):
         for i in range(9):
