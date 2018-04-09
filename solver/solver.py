@@ -2,7 +2,6 @@
 Run this script with the the wanted input and get your output
 """
 import argparse
-import numpy as np
 import importlib
 import logging
 

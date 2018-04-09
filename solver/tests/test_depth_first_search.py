@@ -33,8 +33,10 @@ class TestDepthFirstSearch(unittest.TestCase):
         self.unsolved_sudoku = DepthFirstSearch(unsolved_field)
 
     def test_solve(self):
+        result = self.solved_sudoku.solve()
+        self.assertEqual(result[8, 8], 5)
         result = self.unsolved_sudoku.solve()
-        self.assertEqual(result[8,8], 5)
+        self.assertEqual(result[8, 8], 5)
 
 
 if __name__ == '__main__':
