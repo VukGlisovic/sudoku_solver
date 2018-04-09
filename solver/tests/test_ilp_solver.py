@@ -62,7 +62,7 @@ class TestILPSolver(unittest.TestCase):
         strange_field = [[1, 2], [3, 4]]
         with self.assertRaises(ValueError) as context:
             ILPsolver(field=strange_field)
-        self.assertEqual(str(context.exception), "A Sudoku field needs to be of shape (9,9)!")
+        self.assertEqual(str(context.exception), "A Sudoku field needs 81 cells to be able to create a shape of (9, 9)!")
 
 
 if __name__ == '__main__':

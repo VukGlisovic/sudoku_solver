@@ -10,8 +10,6 @@ class AbstractStrategy:
 
     def __init__(self, field):
         self.field = self.prepare_field(field)
-        if self.field.shape != (9, 9):
-            raise ValueError("A Sudoku field needs to be of shape (9,9)!")
         self.needed_numbers = set(range(1, 10))
 
     @abstractmethod
@@ -20,9 +18,11 @@ class AbstractStrategy:
 
     @staticmethod
     def prepare_field(field):
-        flattenedfield = field.reshape(-1)
+        flattenedfield = np.ravel(field)
         is_nan_locations = np.where(np.isnan(flattenedfield))[0]
         flattenedfield[is_nan_locations] = 0
+        if len(flattenedfield) != 81:
+            raise ValueError("A Sudoku field needs 81 cells to be able to create a shape of (9, 9)!")
         field = flattenedfield.reshape(9, 9)
         return np.array(field, dtype='int32')
 
